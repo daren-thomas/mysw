@@ -1,6 +1,8 @@
 # ignore PyCharm stuff
 .idea/
 
+# ignore the devtoken so we never publish this to GitHub!!
+devtoken
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
