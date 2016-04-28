@@ -1,0 +1,18 @@
+body {
+    font-family: monospace;
+}
+
+h1 {
+    background-color: lightgoldenRodYellow;
+    border:1px solid black;
+    width:100%;
+    margin-bottom:0;
+}
+
+li {
+    list-style-type: circle;
+}
+
+li i {
+    font-size: smaller;
+}
