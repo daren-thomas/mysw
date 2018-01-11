@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ 'css/myswapp.css'|staticfile }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body>
+
+<script src="{{'js/jquery-3.2.1.min.js'|staticfile}}"></script>
+
+
+<div id="wrapper">
+<div id="context-list" class="list-group" role="tablist">
+    {% for context in evernote.context_tag_names %}
+        <a class="list-group-item list-group-item-action" id="context-{{context}}" data-toggle="list"
+           href="#list-{{context}}" role="tab" aria-controls="{{context}}">{{ context }}</a>
+    {% endfor %}
+</div>
+
+<div id="next-actions" class="tab-content">
+    {% for context in next_actions %}
+        <div class="tab-pane fade" id="list-{{context}}" role="tabpanel" aria-labelledby="list-{{context}}">
+            <h2>{{context}}</h2>
+                <ul>
+        {% for note in next_actions[context] %}
+            <li>{{note.title}}</li>
+        {% endfor %}
+                    </ul>
+        </div>
+    {% endfor %}
+
+</div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</body>
+</html>

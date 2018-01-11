@@ -1,7 +1,10 @@
 from evernote.api.client import EvernoteClient
 from evernote.edam.notestore.ttypes import NoteFilter, NotesMetadataResultSpec
 
-dev_token = open('devtoken', 'r').read().rstrip()
+from myswlib import get_dev_token
+
+dev_token = get_dev_token()
+
 client = EvernoteClient(token=dev_token, sandbox=False)
 userStore = client.get_user_store()
 user = userStore.getUser()
