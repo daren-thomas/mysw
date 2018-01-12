@@ -23,11 +23,16 @@
     {% for context in next_actions %}
         <div class="tab-pane fade" id="list-{{context|replace('@', '')}}" role="tabpanel" aria-labelledby="list-{{context}}">
             <h2>{{context}}</h2>
-                <ul>
+                <div class="list-group">
         {% for note in next_actions[context] %}
-            <li>{{note.title}}</li>
+            <a href="#" class="list-group-item">{{note.title}}
+                <div class="btn-group">
+                    <button class="btn"><span class="glyphicon glyphicon-ok"></span>Done</button>
+                    <button class="btn">2-Next</button>
+                    <button class="btn">Open</button>
+                </div></a>
         {% endfor %}
-                    </ul>
+                    </div>
         </div>
     {% endfor %}
 

@@ -30,7 +30,8 @@ class Backend(htmlPy.Object):
 
 
 class NextAction(object):
-    def __init__(self, title, context, level):
+    def __init__(self, guid, title, context, level):
+        self.guid = guid
         self.title = title
         self.context = context
         self.level = level
@@ -41,7 +42,8 @@ def next_actions(evernote):
     for context in evernote.context_tag_names:
         result[context] = []
         for note in evernote.get_notes('1-Now', context):
-            result[context].append(NextAction(title=note.title.decode('utf-8'), context=context, level='1-Now'))
+            result[context].append(NextAction(guid=note.guid, title=note.title.decode('utf-8'),
+                                              context=context, level='1-Now'))
     return result
 
 
