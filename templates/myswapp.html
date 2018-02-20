@@ -10,7 +10,7 @@
 
 <script src="{{'js/jquery-3.2.1.min.js'|staticfile}}"></script>
 
-
+<h1>{{test}}</h1>
 <div id="wrapper">
 <div id="context-list" class="list-group" role="tablist">
     {% for context in evernote.context_tag_names %}
@@ -27,7 +27,7 @@
         {% for note in next_actions[context] %}
             <a href="#" class="list-group-item">{{note.title}}
                 <div class="btn-group">
-                    <button class="btn"><span class="glyphicon glyphicon-ok"></span>Done</button>
+                    <button class="btn" onclick="backend.done('{{note.guid}}')"><span class="glyphicon glyphicon-ok"></span>Done</button>
                     <button class="btn">2-Next</button>
                     <button class="btn">Open</button>
                 </div></a>

@@ -19,13 +19,22 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 class Backend(htmlPy.Object):
     """Contains the backend functions, callable from the GUI."""
-    def __init__(self):
+    def __init__(self, app, evernote):
         super(Backend, self).__init__()
         # Initialize the class here, if required.
+        self.app = app
+        self.evernote = evernote
+        self.test = 0
         pass
 
     @htmlPy.Slot(str, result=str)
-    def test(self, name):
+    def done(self, name):
+        print('done! %s' % name)
+        self.test += 1
+        self.app.template = ("myswapp.html", {
+            "next_actions": next_actions(self.evernote),
+            "evernote": self.evernote,
+            "test": self.test})
         return 'hello ' + name
 
 
@@ -56,8 +65,9 @@ def main(evernote):
     app.template_path = os.path.join(BASE_DIR, 'templates')
     app.static_path = os.path.join(BASE_DIR, 'static')
 
-    app.template = ("myswapp.html", {"next_actions": next_actions(evernote), "evernote": evernote})
-    app.bind(Backend(), variable_name='backend')
+    backend = Backend(app, evernote)
+    app.template = ("myswapp.html", {"next_actions": next_actions(evernote), "evernote": evernote, "test": backend.test})
+    app.bind(backend, variable_name='backend')
     app.start()
 
 
