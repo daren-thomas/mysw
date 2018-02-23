@@ -18,7 +18,11 @@
             <a href="{{ url_for('index') }}">Home</a>
         </div>
         <div class="col-sm">
+            {% if current_user.is_anonymous %}
             <a href="{{ url_for('login') }}">Login</a>
+            {% else %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
         </div>
         <div class="col-sm">
             One of three columns
