@@ -4,13 +4,20 @@ from werkzeug.urls import url_parse
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from app.models import User
+from app.evernote_wrapper import EvernoteWrapper
 
 
 @app.route('/')
 @app.route('/index')
 @login_required
 def index():
-    return render_template('nextactions.html')
+    return redirect(url_for('next_actions', context='', level='1-Now'))
+
+
+@app.route('/next-actions/<level>/<context>')
+def next_actions(level='1-Now', context='all'):
+    return render_template('nextactions.html',
+                           next_actions=EvernoteWrapper().next_actions(level=level, context=context))
 
 
 @app.route('/login', methods=['GET', 'POST'])
