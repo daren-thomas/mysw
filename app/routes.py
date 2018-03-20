@@ -11,13 +11,22 @@ from app.evernote_wrapper import EvernoteWrapper
 @app.route('/index')
 @login_required
 def index():
-    return redirect(url_for('next_actions', context='', level='1-Now'))
+    return redirect(url_for('next_actions', context='all', level='1-Now'))
 
 
 @app.route('/next-actions/<level>/<context>')
 def next_actions(level='1-Now', context='all'):
     return render_template('nextactions.html',
-                           next_actions=EvernoteWrapper().next_actions(level=level, context=context))
+                           next_actions=EvernoteWrapper().next_actions(level=level, context=context),
+                           current_level=level, current_context=context)
+
+
+@app.route('/transition/<note_guid>/<context>/<old_level>/<new_level>')
+def transition(note_guid, context, old_level, new_level):
+    EvernoteWrapper().replace_tag(note_guid, old_level, new_level)
+    return redirect(url_for('next_actions', context=context, level=old_level))
+
+
 
 
 @app.route('/login', methods=['GET', 'POST'])

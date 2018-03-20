@@ -1,13 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="col-sm">
-        One of three columns
-    </div>
-    <div class="col-sm">
-        One of three columns
-    </div>
-    <div class="col-sm">
-        One of three columns
+    <div id="next-actions">
+    <ul class="list-group">
+    {% for na in next_actions %}
+        <li class="list-group-item">{{ na.title }}
+            <a href="{{ na.link }}" class="btn btn-primary btn-sm">open</a>
+            {% for level in na.transitions %}
+                <a href="{{ url_for('transition', note_guid=na.guid, context=current_context, old_level=current_level, new_level=level) }}"
+                   class="btn btn-outline-secondary btn-sm">{{ level }}</a>
+            {% endfor %}
+        </li>
+    {% endfor %}
+    </ul>
     </div>
 {% endblock %}
