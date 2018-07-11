@@ -2,25 +2,30 @@
 
 {% block content %}
   <div class="row">
-      <div class="btn-group" role="group" aria-label="Choose level">
-        {% for level in levels %}
+    <div class="btn-group" role="group" aria-label="Choose level">
+      {% for level in levels %}
         <a href="{{ url_for('next_actions', context=current_context, level=level) }}"
            class="btn btn-secondary {% if level == current_level %}active{% endif %}">{{ level }}</a>
-        {% endfor %}
-      </div>
+      {% endfor %}
     </div>
+  </div>
 
-    <div id="next-actions" class="row">
+  <div id="next-actions" class="row">
     <ul class="list-group">
-    {% for na in next_actions %}
+      {% for na in next_actions %}
         <li class="list-group-item">{{ na.title }}
-            <a href="{{ na.link }}" class="btn btn-primary btn-sm">open</a>
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">Transition</button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{{ na.link }}">open</a>
+            <div class="dropdown-divider"></div>
             {% for level in na.transitions %}
-                <a href="{{ url_for('transition', note_guid=na.guid, context=current_context, old_level=current_level, new_level=level) }}"
-                   class="btn btn-outline-secondary btn-sm">{{ level }}</a>
-            {% endfor %}
+            <a href="{{ url_for('transition', note_guid=na.guid, context=current_context, old_level=current_level, new_level=level) }}"
+               class="dropdown-item">{{ level }}</a>
+          {% endfor %}
+          </div>
         </li>
-    {% endfor %}
+      {% endfor %}
     </ul>
-    </div>
+  </div>
 {% endblock %}
