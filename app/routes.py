@@ -4,7 +4,7 @@ from werkzeug.urls import url_parse
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from app.models import User
-from app.evernote_wrapper import EvernoteWrapper
+from app.evernote_wrapper import EvernoteWrapper, NextAction
 
 
 @app.route('/')
@@ -18,7 +18,7 @@ def index():
 def next_actions(level='1-Now', context='all'):
     return render_template('nextactions.html',
                            next_actions=EvernoteWrapper().next_actions(level=level, context=context),
-                           current_level=level, current_context=context)
+                           current_level=level, levels=NextAction.levels, current_context=context)
 
 
 @app.route('/transition/<note_guid>/<context>/<old_level>/<new_level>')
