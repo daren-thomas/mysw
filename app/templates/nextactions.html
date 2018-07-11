@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div id="next-actions">
+  <div class="row">
+      <div class="btn-group" role="group" aria-label="Choose level">
+        {% for level in levels %}
+        <a href="{{ url_for('next_actions', context=current_context, level=level) }}"
+           class="btn btn-secondary {% if level == current_level %}active{% endif %}">{{ level }}</a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div id="next-actions" class="row">
     <ul class="list-group">
     {% for na in next_actions %}
         <li class="list-group-item">{{ na.title }}
